@@ -2,23 +2,21 @@ package com.lightquark.cs.sort;
 
 /**
  * Merge Sort
+ * Divide input array in two halves, call itself for the two halves and then merge the two sorted halves.
  *
- * Time Complexity: O(nLogn)
- * Auxiliary Space: O(n) *
- * Sorting In Place: No in a typical implementation
+ * Time Complexity: O(n*Logn)
+ * Auxiliary Space: O(n)
+ * Sorting In Place: No
  * Stable: Yes
  *
- * TODO: implement for Linked list
+ * TODO: implement for Linked list ???
  */
 public class MergeSortableArray extends AbstractSortableArray {
 
-    public MergeSortableArray(int[] values) {
-        super(values);
-    }
-
     @Override
-    public void sort() {
+    protected int[] internalSort(int[] values) {
         sort(values, 0, values.length - 1);
+        return values;
     }
 
     private void sort(int[] values, int left, int right) {
@@ -73,6 +71,5 @@ public class MergeSortableArray extends AbstractSortableArray {
             valuesIndex++;
             rightIndex++;
         }
-
     }
 }

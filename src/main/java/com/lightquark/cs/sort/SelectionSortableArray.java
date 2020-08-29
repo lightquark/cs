@@ -2,23 +2,19 @@ package com.lightquark.cs.sort;
 
 /**
  * Selection Sort
+ * Repeatedly find the minimum element from unsorted part and put it at the beginning.
  *
- * Time Complexity: O(n2) as there are two nested loops.
+ * Advantage: It never makes more than O(n) swaps and can be useful when memory write is a costly operation.
+ *
+ * Time Complexity: O(n^2) as there are two nested loops.
  * Auxiliary Space: O(1)
- * Stability : The default implementation is not stable. However it can be made stable. Please see stable selection com.lightquark.cs.sort for details.
- * In Place : Yes, it does not require extra space.
- *
- * The good thing about selection com.lightquark.cs.sort is it never makes more than O(n) swaps and can be useful when memory write is a costly operation.
+ * Sorting In Place: Yes
+ * Stable: No
  */
 public class SelectionSortableArray extends AbstractSortableArray {
 
-    public SelectionSortableArray(int[] values) {
-        super(values);
-    }
-
     @Override
-    public void sort() {
-
+    protected int[] internalSort(int[] values) {
         int size = values.length;
         for (int i = 0; i < size - 1; i++) {
 
@@ -31,8 +27,9 @@ public class SelectionSortableArray extends AbstractSortableArray {
             }
 
             if (minIndex != i) {
-                swap(i, minIndex);
+                swap(values, i, minIndex);
             }
         }
+        return values;
     }
 }

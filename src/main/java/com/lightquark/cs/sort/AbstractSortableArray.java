@@ -7,21 +7,23 @@ import java.util.Arrays;
 
 @Getter
 @ToString
-public abstract class AbstractSortableArray implements Sortable {
+public abstract class AbstractSortableArray implements Sortable<int[]> {
 
-    protected final int[] values;
-
-    public AbstractSortableArray(int[] values) {
-        // copy values to make sure that any other function will not modify them
-        this.values = Arrays.copyOf(values, values.length);
+    @Override
+    public int[] sort(int[] values) {
+        // copy input values to make sure that any other function will not modify them
+        int[] v = Arrays.copyOf(values, values.length);
+        return internalSort(v);
     }
+
+    protected abstract int[] internalSort(int[] values);
 
     /**
      * An auxiliary function for reducing boilerplate code
      */
-    protected void swap(int i, int j) {
-        int tmp = values[i];
-        values[i] = values[j];
-        values[j] = tmp;
+    protected void swap(int[] v, int i, int j) {
+        int tmp = v[i];
+        v[i] = v[j];
+        v[j] = tmp;
     }
 }

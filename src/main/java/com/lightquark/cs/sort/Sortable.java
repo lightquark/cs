@@ -1,7 +1,7 @@
 package com.lightquark.cs.sort;
 
-public interface Sortable {
+public interface Sortable<T> {
 
-    void sort();
+    T sort(T values);
 
 }

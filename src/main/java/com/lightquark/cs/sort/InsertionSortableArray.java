@@ -2,10 +2,12 @@ package com.lightquark.cs.sort;
 
 /**
  * Insertion Sort
+ * The array is virtually split into a sorted and an unsorted part.
+ * Values from the unsorted part are picked and placed at the correct position in the sorted part.
  *
- * Time Complexity: O(n*2)
+ * Worst and Average Case Time Complexity: O(n*2). Worst case occurs when array is reverse sorted.
+ * Best Case Time Complexity: O(n). Best case occurs when array is already sorted.
  * Auxiliary Space: O(1)
- * Boundary Cases: Insertion com.lightquark.cs.sort takes maximum time to com.lightquark.cs.sort if elements are sorted in reverse order. And it takes minimum time (Order of n) when elements are already sorted.
  * Sorting In Place: Yes
  * Stable: Yes
  *
@@ -15,13 +17,8 @@ package com.lightquark.cs.sort;
  */
 public class InsertionSortableArray extends AbstractSortableArray {
 
-    public InsertionSortableArray(int[] values) {
-        super(values);
-    }
-
     @Override
-    public void sort() {
-
+    protected int[] internalSort(int[] values) {
         int size = values.length;
         for (int i = 1; i < size; i++) {
 
@@ -34,8 +31,8 @@ public class InsertionSortableArray extends AbstractSortableArray {
                     j--;
                 }
                 values[j + 1] = tmp;
-
             }
         }
+        return values;
     }
 }
