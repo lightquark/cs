@@ -30,7 +30,10 @@ class SortableArrayTest {
                 SelectionSortableArray(),
                 MergeSortableArray(),
                 QuickSortableArray(),
-                HeapSortableArray()
+                HeapSortableArray(),
+                BucketSortableArray(),
+                ShellSortableArray(),
+                CombSortableArray()
             )
 
             val values = listOf(
@@ -43,6 +46,8 @@ class SortableArrayTest {
                 Pair(intArrayOf(1, 1, 2, 2), intArrayOf(1, 1, 2, 2)),
                 Pair(intArrayOf(1, 2, 1, 2), intArrayOf(1, 1, 2, 2)),
                 Pair(intArrayOf(2, 2, 1, 1), intArrayOf(1, 1, 2, 2)),
+                Pair(intArrayOf(0), intArrayOf(0)),
+                Pair(intArrayOf(5), intArrayOf(5))
             )
 
             return sortMethods.stream()
