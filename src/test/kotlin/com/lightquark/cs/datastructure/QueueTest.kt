@@ -72,7 +72,7 @@ class QueueTest {
 
     companion object {
 
-        val VALUE = 1;
+        const val VALUE = 1;
         val VALUES = intArrayOf(1, 2, 3, 4, 5)
 
         @JvmStatic
