@@ -89,8 +89,8 @@ class LinkedListTest {
 
     companion object {
 
-        const val VALUE = 1;
-        val VALUES = intArrayOf(5, 1, 2, 4, 3)
+        const val VALUE = 99;
+        val VALUES = intArrayOf(91, 93, 97, 99, 92)
 
         @JvmStatic
         private fun listDataProvider(): Stream<Arguments> {

@@ -3,11 +3,11 @@ package com.lightquark.cs.datastructure;
 import lombok.ToString;
 
 @ToString
-public class ArrayBasedQueue implements Queue<Integer> {
+public class ArrayBasedQueue<T> implements Queue<T> {
 
     private static final int DEFAULT_SIZE = 10;
 
-    private final int[] values;
+    private final Object[] values;
     private int head;
     private int tail;
     private int size;
@@ -17,14 +17,24 @@ public class ArrayBasedQueue implements Queue<Integer> {
     }
 
     public ArrayBasedQueue(int initialSize) {
-        this.values = new int[initialSize];
+        this.values = new Object[initialSize];
         this.head = 0;
         this.tail = 0;
         this.size = 0;
     }
 
     @Override
-    public void enqueue(Integer value) {
+    public long size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size <= 0;
+    }
+
+    @Override
+    public void enqueue(T value) {
         if (size >= values.length) {
             throw new IndexOutOfBoundsException("Exceed queue size of " + values.length + " elements");
         }
@@ -34,9 +44,9 @@ public class ArrayBasedQueue implements Queue<Integer> {
     }
 
     @Override
-    public Integer dequeue() {
+    public T dequeue() {
         if (size > 0) {
-            Integer v = values[tail];
+            T v = (T) values[tail];
             tail = getNextIndex(tail);
             size--;
             return v;
@@ -45,9 +55,9 @@ public class ArrayBasedQueue implements Queue<Integer> {
     }
 
     @Override
-    public Integer peek() {
+    public T peek() {
         if (size > 0) {
-            return values[tail];
+            return (T) values[tail];
         }
         return null;
     }

@@ -16,51 +16,53 @@ class StackTest {
     @ParameterizedTest(name = "Arguments set #{index} : ''{0}''")
     @MethodSource("stackDataProvider")
     fun `should push, peek and pop one value`(stackImplementation: Stack<Any>) {
-        var actual = stackImplementation.peek()
-        actual shouldBe null
-        actual = stackImplementation.pop()
-        actual shouldBe null
+        stackImplementation.peek() shouldBe null
+        stackImplementation.pop() shouldBe null
+        stackImplementation.size() shouldBe 0
+        stackImplementation.isEmpty shouldBe true
 
         stackImplementation.push(VALUE)
-        actual = stackImplementation.peek()
-        actual shouldBe VALUE
-        actual = stackImplementation.pop()
-        actual shouldBe VALUE
+        stackImplementation.size() shouldBe 1
+        stackImplementation.isEmpty shouldBe false
+        stackImplementation.peek() shouldBe VALUE
+        stackImplementation.pop() shouldBe VALUE
 
-        actual = stackImplementation.peek()
-        actual shouldBe null
-        actual = stackImplementation.pop()
-        actual shouldBe null
+        stackImplementation.peek() shouldBe null
+        stackImplementation.pop() shouldBe null
+        stackImplementation.size() shouldBe 0
+        stackImplementation.isEmpty shouldBe true
     }
 
     @ParameterizedTest(name = "Arguments set #{index} : ''{0}''")
     @MethodSource("stackDataProvider")
     fun `should push, peek and pop many values`(stackImplementation: Stack<Any>) {
-        var actual = stackImplementation.peek()
-        actual shouldBe null
-        actual = stackImplementation.pop()
-        actual shouldBe null
+        stackImplementation.peek() shouldBe null
+        stackImplementation.pop() shouldBe null
+        stackImplementation.size() shouldBe 0
+        stackImplementation.isEmpty shouldBe true
 
-        VALUES.forEach { value ->
+        VALUES.forEachIndexed { index, value ->
             stackImplementation.push(value)
+            stackImplementation.size() shouldBe index + 1
+            stackImplementation.isEmpty shouldBe false
         }
 
-        VALUES.reversedArray().forEach { value ->
-            actual = stackImplementation.peek()
-            actual shouldBe value
-            actual = stackImplementation.pop()
-            actual shouldBe value
+        VALUES.reversedArray().forEachIndexed { index, value ->
+            stackImplementation.size() shouldBe VALUES.size - index
+            stackImplementation.isEmpty shouldBe false
+            stackImplementation.peek() shouldBe value
+            stackImplementation.pop() shouldBe value
         }
 
-        actual = stackImplementation.peek()
-        actual shouldBe null
-        actual = stackImplementation.pop()
-        actual shouldBe null
+        stackImplementation.peek() shouldBe null
+        stackImplementation.pop() shouldBe null
+        stackImplementation.size() shouldBe 0
+        stackImplementation.isEmpty shouldBe true
     }
 
     @Test
     fun `should throw IndexOutOfBoundsException when size exceeded`() {
-        val stack = ArrayBasedStack(2)
+        val stack = ArrayBasedStack<Int>(2)
 
         stack.push(QueueTest.VALUE)
         stack.push(QueueTest.VALUE)
@@ -72,14 +74,14 @@ class StackTest {
 
     companion object {
 
-        const val VALUE = 1;
-        val VALUES = intArrayOf(1, 2, 3, 4, 5)
+        const val VALUE = 99;
+        val VALUES = intArrayOf(91, 93, 97, 99, 92)
 
         @JvmStatic
         private fun stackDataProvider(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(ArrayBasedStack()),
-                Arguments.of(ListBasedStack())
+                Arguments.of(ArrayBasedStack<Int>()),
+                Arguments.of(ListBasedStack<Int>())
             )
         }
     }

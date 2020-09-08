@@ -16,51 +16,53 @@ class QueueTest {
     @ParameterizedTest(name = "Arguments set #{index} : ''{0}''")
     @MethodSource("queueDataProvider")
     fun `should push, peek and pop one value`(queueImplementation: Queue<Any>) {
-        var actual = queueImplementation.peek()
-        actual shouldBe null
-        actual = queueImplementation.dequeue()
-        actual shouldBe null
+        queueImplementation.peek() shouldBe null
+        queueImplementation.dequeue() shouldBe null
+        queueImplementation.size() shouldBe 0
+        queueImplementation.isEmpty shouldBe true
 
         queueImplementation.enqueue(VALUE)
-        actual = queueImplementation.peek()
-        actual shouldBe VALUE
-        actual = queueImplementation.dequeue()
-        actual shouldBe VALUE
+        queueImplementation.size() shouldBe 1
+        queueImplementation.isEmpty shouldBe false
+        queueImplementation.peek() shouldBe VALUE
+        queueImplementation.dequeue() shouldBe VALUE
 
-        actual = queueImplementation.peek()
-        actual shouldBe null
-        actual = queueImplementation.dequeue()
-        actual shouldBe null
+        queueImplementation.peek() shouldBe null
+        queueImplementation.dequeue() shouldBe null
+        queueImplementation.size() shouldBe 0
+        queueImplementation.isEmpty shouldBe true
     }
 
     @ParameterizedTest(name = "Arguments set #{index} : ''{0}''")
     @MethodSource("queueDataProvider")
     fun `should push, peek and pop many values`(queueImplementation: Queue<Any>) {
-        var actual = queueImplementation.peek()
-        actual shouldBe null
-        actual = queueImplementation.dequeue()
-        actual shouldBe null
+        queueImplementation.peek() shouldBe null
+        queueImplementation.dequeue() shouldBe null
+        queueImplementation.size() shouldBe 0
+        queueImplementation.isEmpty shouldBe true
 
-        VALUES.forEach { value ->
+        VALUES.forEachIndexed { index, value ->
             queueImplementation.enqueue(value)
+            queueImplementation.size() shouldBe index + 1
+            queueImplementation.isEmpty shouldBe false
         }
 
-        VALUES.forEach { value ->
-            actual = queueImplementation.peek()
-            actual shouldBe value
-            actual = queueImplementation.dequeue()
-            actual shouldBe value
+        VALUES.forEachIndexed { index, value ->
+            queueImplementation.size() shouldBe VALUES.size - index
+            queueImplementation.isEmpty shouldBe false
+            queueImplementation.peek() shouldBe value
+            queueImplementation.dequeue() shouldBe value
         }
 
-        actual = queueImplementation.peek()
-        actual shouldBe null
-        actual = queueImplementation.dequeue()
-        actual shouldBe null
+        queueImplementation.peek() shouldBe null
+        queueImplementation.dequeue() shouldBe null
+        queueImplementation.size() shouldBe 0
+        queueImplementation.isEmpty shouldBe true
     }
 
     @Test
     fun `should throw IndexOutOfBoundsException when size exceeded`() {
-        val queue = ArrayBasedQueue(2)
+        val queue = ArrayBasedQueue<Int>(2)
 
         queue.enqueue(VALUE)
         queue.enqueue(VALUE)
@@ -72,14 +74,14 @@ class QueueTest {
 
     companion object {
 
-        const val VALUE = 1;
-        val VALUES = intArrayOf(1, 2, 3, 4, 5)
+        const val VALUE = 99;
+        val VALUES = intArrayOf(91, 93, 97, 99, 92)
 
         @JvmStatic
         private fun queueDataProvider(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(ArrayBasedQueue()),
-                Arguments.of(ListBasedQueue())
+                Arguments.of(ArrayBasedQueue<Int>()),
+                Arguments.of(ListBasedQueue<Int>())
             )
         }
     }

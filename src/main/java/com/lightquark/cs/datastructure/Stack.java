@@ -16,6 +16,10 @@ package com.lightquark.cs.datastructure;
  */
 public interface Stack<T> {
 
+    long size();
+
+    boolean isEmpty();
+
     void push(T value);
 
     T pop();

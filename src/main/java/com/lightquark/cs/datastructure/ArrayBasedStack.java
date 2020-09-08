@@ -3,11 +3,11 @@ package com.lightquark.cs.datastructure;
 import lombok.ToString;
 
 @ToString
-public class ArrayBasedStack implements Stack<Integer> {
+public class ArrayBasedStack<T> implements Stack<T> {
 
     private static final int DEFAULT_SIZE = 10;
 
-    private final int[] values;
+    private final Object[] values;
     private int index;
 
     public ArrayBasedStack() {
@@ -15,12 +15,22 @@ public class ArrayBasedStack implements Stack<Integer> {
     }
 
     public ArrayBasedStack(int initialSize) {
-        this.values = new int[initialSize];
+        this.values = new Object[initialSize];
         this.index = -1;
     }
 
     @Override
-    public void push(Integer value) {
+    public long size() {
+        return index + 1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return index < 0;
+    }
+
+    @Override
+    public void push(T value) {
         if (index == values.length - 1) {
             throw new IndexOutOfBoundsException("Exceed stack size of " + values.length + " elements");
         }
@@ -29,18 +39,18 @@ public class ArrayBasedStack implements Stack<Integer> {
     }
 
     @Override
-    public Integer pop() {
+    public T pop() {
         if (0 <= index && index <= values.length) {
             index--;
-            return values[index + 1];
+            return (T) values[index + 1];
         }
         return null;
     }
 
     @Override
-    public Integer peek() {
+    public T peek() {
         if (0 <= index && index <= values.length) {
-            return values[index];
+            return (T) values[index];
         }
         return null;
     }

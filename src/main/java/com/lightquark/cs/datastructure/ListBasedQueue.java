@@ -5,23 +5,33 @@ import lombok.ToString;
 import java.util.LinkedList;
 
 @ToString
-public class ListBasedQueue implements Queue<Integer> {
+public class ListBasedQueue<T> implements Queue<T> {
 
-    private final LinkedList<Integer> values;
+    private final LinkedList<T> values;
 
     public ListBasedQueue() {
         this.values = new LinkedList<>();
     }
 
     @Override
-    public void enqueue(Integer value) {
+    public long size() {
+        return values.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return values.size() <= 0;
+    }
+
+    @Override
+    public void enqueue(T value) {
         values.add(value);
     }
 
     @Override
-    public Integer dequeue() {
+    public T dequeue() {
         if (values.size() > 0) {
-            Integer v = values.get(0);
+            T v = values.get(0);
             values.remove(0);
             return v;
         }
@@ -29,7 +39,7 @@ public class ListBasedQueue implements Queue<Integer> {
     }
 
     @Override
-    public Integer peek() {
+    public T peek() {
         if (values.size() > 0) {
             return values.get(0);
         }

@@ -14,6 +14,10 @@ package com.lightquark.cs.datastructure;
  */
 public interface Queue<T> {
 
+    long size();
+
+    boolean isEmpty();
+
     void enqueue(T value);
 
     T dequeue();
